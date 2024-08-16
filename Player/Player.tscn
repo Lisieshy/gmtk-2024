@@ -1,28 +1,103 @@
-[gd_scene load_steps=9 format=3 uid="uid://btar06bgcmkuo"]
+[gd_scene load_steps=15 format=3 uid="uid://btar06bgcmkuo"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_u30so"]
 [ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/Player.png" id="2_mljok"]
 [ext_resource type="Texture2D" uid="uid://odgxuqm1dc7p" path="res://Assets/gun.png" id="3_bx26u"]
 [ext_resource type="Texture2D" uid="uid://ca4g12j1djbs1" path="res://Assets/energy_bullet.png" id="4_fyt50"]
+[ext_resource type="Shader" path="res://Player/bullet_color.gdshader" id="4_t5uj3"]
 [ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
+[ext_resource type="Texture2D" uid="uid://c2jgo3kvpmgpw" path="res://Assets/shader/point_light.png" id="6_t8hvk"]
 [ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
 
-[sub_resource type="Curve" id="Curve_krgap"]
-bake_resolution = 1000
-_data = [Vector2(0, 0), 0.0, 1.74402, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.054945), 0.0, 0.0, 0, 0, Vector2(1, 1), 5.61127, 0.0, 0, 0]
-point_count = 4
+[sub_resource type="Gradient" id="Gradient_a8lit"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333)
+colors = PackedColorArray(0.231373, 0.364706, 0.788235, 1, 0.254902, 0.65098, 0.964706, 1, 0.654902, 0.941176, 0.439216, 1, 1, 0.803922, 0.458824, 1, 0.937255, 0.490196, 0.341176, 1, 1, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 12
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
 radius = 2.2409
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7no1b"]
+shader = ExtResource("4_t5uj3")
+shader_parameter/energy_color = Color(0.29, 0.372833, 1, 1)
+
+[sub_resource type="Animation" id="Animation_p3120"]
+resource_name = "bullet_rotation"
+length = 4.0
+loop_mode = 1
+step = 0.33
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun/EnergyEffect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 1, 1.33333, 1.66667, 2, 2.33333, 2.66667, 3, 3.33333, 3.66667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 2.0944, 4.18879, 6.28319, 8.37758, 10.472, 12.5664, 14.6608, 16.7552, 18.8496, 20.944, 23.0383, 25.1327]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun/EnergyEffect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.85, 0.85), Vector2(1, 1), Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_apped"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun/EnergyEffect:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gun/EnergyEffect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4gr8"]
+_data = {
+"RESET": SubResource("Animation_apped"),
+"bullet_rotation": SubResource("Animation_p3120")
+}
 
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
 mass = 50.0
 lock_rotation = true
 script = ExtResource("1_u30so")
-charge_rate = SubResource("Curve_krgap")
+color_progression = SubResource("Gradient_a8lit")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
+
+[node name="Player" type="Sprite2D" parent="."]
 texture = ExtResource("2_mljok")
 
 [node name="Gun" type="Sprite2D" parent="."]
@@ -30,23 +105,40 @@ texture = ExtResource("3_bx26u")
 offset = Vector2(14, 0)
 
 [node name="EnergyEffect" type="Sprite2D" parent="Gun"]
-position = Vector2(25, -2)
+visible = false
+light_mask = 0
+visibility_layer = 2
+material = SubResource("ShaderMaterial_7no1b")
+position = Vector2(26, 0)
 texture = ExtResource("4_fyt50")
 hframes = 3
 frame = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(3.57, 3.57)
-shape = SubResource("CircleShape2D_sew5y")
+[node name="PointLight2D" type="PointLight2D" parent="Gun"]
+visible = false
+show_behind_parent = true
+position = Vector2(26, 0)
+scale = Vector2(0.1, 0.1)
+shadow_enabled = true
+texture = ExtResource("6_t8hvk")
+
+[node name="Bullet_Spawn" type="Marker2D" parent="Gun"]
+position = Vector2(26, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3.63, 3.63)
+zoom = Vector2(4, 4)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Timer" type="Timer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Node2D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a4gr8")
+}
+autoplay = "bullet_rotation"
 
-[node name="MarginContainer" type="MarginContainer" parent="Node2D/CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -56,16 +148,14 @@ theme_override_constants/margin_left = 128
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 128
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Node2D/CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Node2D/CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-max_value = 500.0
-value = 50.0
-allow_greater = true
+value = 100.0
 nine_patch_stretch = true
 stretch_margin_left = 8
 stretch_margin_top = 8
@@ -73,3 +163,5 @@ stretch_margin_right = 8
 stretch_margin_bottom = 8
 texture_under = ExtResource("4_x0xns")
 texture_progress = ExtResource("6_yoqsp")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
