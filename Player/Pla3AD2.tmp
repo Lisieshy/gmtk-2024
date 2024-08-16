@@ -1,16 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://btar06bgcmkuo"]
+[gd_scene load_steps=8 format=3 uid="uid://btar06bgcmkuo"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_u30so"]
 [ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/Player.png" id="2_mljok"]
 [ext_resource type="Texture2D" uid="uid://odgxuqm1dc7p" path="res://Assets/gun.png" id="3_bx26u"]
-[ext_resource type="Texture2D" uid="uid://ca4g12j1djbs1" path="res://Assets/energy_bullet.png" id="4_fyt50"]
 [ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
 [ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
 
 [sub_resource type="Curve" id="Curve_krgap"]
-bake_resolution = 1000
-_data = [Vector2(0, 0), 0.0, 1.74402, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.054945), 0.0, 0.0, 0, 0, Vector2(1, 1), 5.61127, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
 radius = 2.2409
@@ -28,12 +26,6 @@ texture = ExtResource("2_mljok")
 [node name="Gun" type="Sprite2D" parent="."]
 texture = ExtResource("3_bx26u")
 offset = Vector2(14, 0)
-
-[node name="EnergyEffect" type="Sprite2D" parent="Gun"]
-position = Vector2(25, -2)
-texture = ExtResource("4_fyt50")
-hframes = 3
-frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(3.57, 3.57)
