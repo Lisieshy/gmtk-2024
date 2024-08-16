@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=4 uid="uid://drsag3sy5q2bv"]
 
-[ext_resource type="Texture2D" uid="uid://drnd1x5ca2iqg" path="res://Assets/Dirt_Tileset.png" id="1_ibfmu"]
+[ext_resource type="Texture2D" uid="uid://bmung6483y117" path="res://Assets/Tileset.png" id="1_076lm"]
 [ext_resource type="PackedScene" uid="uid://btar06bgcmkuo" path="res://Player/Player.tscn" id="1_t5w0k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y8dec"]
-texture = ExtResource("1_ibfmu")
+texture = ExtResource("1_076lm")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
