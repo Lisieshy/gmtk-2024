@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://btar06bgcmkuo"]
+
+[ext_resource type="Texture2D" uid="uid://cpni43m4w2gei" path="res://icon.svg" id="1_f2uma"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_u30so"]
+[ext_resource type="Texture2D" uid="uid://cdwefelxj8yko" path="res://Assets/gun_temporary.bmp" id="3_ioq03"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
+radius = 3.96138
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" type="RigidBody2D" parent="."]
+physics_interpolation_mode = 1
+mass = 50.0
+lock_rotation = true
+script = ExtResource("1_u30so")
+
+[node name="Icon" type="Sprite2D" parent="Player"]
+scale = Vector2(0.2142, 0.2142)
+texture = ExtResource("1_f2uma")
+
+[node name="Gun" type="Sprite2D" parent="Player"]
+scale = Vector2(0.0357, 0.0357)
+texture = ExtResource("3_ioq03")
+offset = Vector2(860, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2.435, 2.435)
