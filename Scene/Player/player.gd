@@ -30,9 +30,17 @@ func _ready() -> void:
 	energy_bar.max_value = MAX_ENERGY
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_pressed("Shooting") and energy > 0:
+		var angle_to_mouse = get_angle_to(get_global_mouse_position())
+		var calc_x: float = -50 * cos(angle_to_mouse)
+		var calc_y: float = -50 * sin(angle_to_mouse)
+		var tween = get_tree().create_tween()
+		tween.tween_property(camera_2d, "position", Vector2(calc_x, calc_y), 0.1).set_trans(Tween.TRANS_EXPO)
+
 	if Input.is_action_just_pressed("Shooting") and energy > 0:
 		timer.wait_time = 0.012
 		timer.start()
+
 		energy_effect.visible = true
 		point_light_2d.visible = true
 		energy_effect.frame = 0
@@ -43,8 +51,9 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_released("Shooting"):
 		timer.stop()
 		var tween = get_tree().create_tween()
-		tween.tween_property(camera_2d, "zoom", Vector2.ONE * 3.0, 0.2).set_trans(Tween.TRANS_ELASTIC)
-		#tween.tween_property(camera_2d, "position", Vector2.ONE * gun.rotation, 0.2).set_trans(Tween.TRANS_EXPO)
+		tween.set_parallel(true)
+		tween.tween_property(camera_2d, "zoom", Vector2.ONE * 2.0, 0.2).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(camera_2d, "position", Vector2(0,0), 0.2).set_trans(Tween.TRANS_ELASTIC)
 		energy_effect.visible = false
 		point_light_2d.visible = false
 		var angle = gun.rotation
@@ -61,9 +70,10 @@ func _on_timer_timeout() -> void:
 		if timer.wait_time >= 0.66:
 				energy_effect.frame = 2
 
-		var target_zoom = Vector2.ONE * lerp(camera_2d.zoom.x, 2.0, timer.wait_time)
 		var tween = get_tree().create_tween()
-		tween.tween_property(camera_2d, "zoom", Vector2.ONE * target_zoom, 0.2).set_trans(Tween.TRANS_EXPO)
+
+		var zoom_progression = Vector2.ONE * lerp(camera_2d.zoom.x, 1.5, timer.wait_time)
+		tween.tween_property(camera_2d, "zoom", Vector2.ONE * zoom_progression, 0.2).set_trans(Tween.TRANS_EXPO)
 
 		energy_effect.material.set("shader_parameter/energy_color", color_progression.sample(timer.wait_time))
 		point_light_2d.color = color_progression.sample(timer.wait_time)
