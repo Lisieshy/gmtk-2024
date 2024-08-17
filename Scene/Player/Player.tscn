@@ -181,6 +181,7 @@ max_health = 10
 health = 10
 
 [node name="HitboxComponant" parent="." node_paths=PackedStringArray("health_componant") instance=ExtResource("10_j3v4f")]
+collision_layer = 2
 health_componant = NodePath("../HealthComponant")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponant"]
@@ -188,3 +189,4 @@ shape = SubResource("CircleShape2D_k63s3")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="dead" from="HealthComponant" to="." method="_on_health_componant_dead"]

@@ -4,15 +4,14 @@ class_name HurtBoxComponant
 
 @export var damage: int = 10
 
-signal did_damage
+signal collision
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is HitboxComponant:
 		var attack = Attack.new()
 		attack.damage = 10
 		area.damage(attack)
-		did_damage.emit()
-	
+	collision.emit()
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -20,4 +19,4 @@ func _on_body_entered(body: Node2D) -> void:
 		var attack = Attack.new()
 		attack.damage = 10
 		body.damage(attack)
-		did_damage.emit()
+	collision.emit()

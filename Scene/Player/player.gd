@@ -27,7 +27,6 @@ var energy: int = 300:
 @onready var gun_firing: AudioStreamPlayer2D = $GunFiring
 @onready var bounce: AudioStreamPlayer2D = $Bounce
 
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var energy_effect: Sprite2D = $Gun/EnergyEffect
 @export var color_progression: Gradient
 @onready var point_light_2d: PointLight2D = $Gun/PointLight2D
@@ -142,3 +141,11 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
 	play_sound(bounce)
+
+
+func _on_health_componant_dead() -> void:
+	call_deferred("reload_level")
+	
+func reload_level():
+	if get_tree():
+		get_tree().reload_current_scene()

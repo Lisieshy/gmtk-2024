@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://n2gbaiwftiog"]
+
+[ext_resource type="PackedScene" uid="uid://dhjks8ea43356" path="res://Scene/Componant/hurt_box_componant.tscn" id="1_i2r8g"]
+[ext_resource type="Texture2D" uid="uid://jucboai5xul7" path="res://Assets/texture/spike.png" id="1_nfjly"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv2f6"]
+size = Vector2(16, 4)
+
+[node name="Spike" type="Sprite2D"]
+texture = ExtResource("1_nfjly")
+
+[node name="HurtBoxComponant" parent="." instance=ExtResource("1_i2r8g")]
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponant"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_yv2f6")

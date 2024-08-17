@@ -19,13 +19,5 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global_position += (direction * delta) 
 
-func _on_hurt_box_componant_did_damage() -> void:
-	queue_free()
-
-
-func _on_hurt_box_componant_area_entered(area: Area2D) -> void:
-	queue_free()
-
-
-func _on_hurt_box_componant_body_entered(body: Node2D) -> void:
+func _on_hurt_box_componant_collision() -> void:
 	queue_free()

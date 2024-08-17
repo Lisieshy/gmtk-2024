@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://bay6tmvoai4pn"]
+[gd_resource type="TileSet" load_steps=10 format=3 uid="uid://nsb206dd083t"]
 
 [ext_resource type="Texture2D" uid="uid://bmung6483y117" path="res://Assets/texture/Tileset.png" id="1_5x7t3"]
 [ext_resource type="PackedScene" uid="uid://bnhm0doij3ymd" path="res://Scene/BatteryPack/battery_pack.tscn" id="2_kh7fi"]
 [ext_resource type="PackedScene" uid="uid://btar06bgcmkuo" path="res://Scene/Player/Player.tscn" id="3_iti5r"]
+[ext_resource type="PackedScene" uid="uid://n2gbaiwftiog" path="res://Scene/spike.tscn" id="4_b1ivh"]
 [ext_resource type="Texture2D" uid="uid://con1d6j7ds60p" path="res://Assets/texture/semi_solid_platform.png" id="4_snfya"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0sqbf"]
@@ -440,6 +441,7 @@ texture = ExtResource("1_5x7t3")
 resource_name = "Collections"
 scenes/1/scene = ExtResource("2_kh7fi")
 scenes/2/scene = ExtResource("3_iti5r")
+scenes/3/scene = ExtResource("4_b1ivh")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wf84r"]
 texture = ExtResource("4_snfya")

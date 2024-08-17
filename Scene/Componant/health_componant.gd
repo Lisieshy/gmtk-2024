@@ -17,6 +17,6 @@ signal dead
 func damage(damage_value: int) -> void:
 	health -= damage_value
 	if health > 0:
-		damage_taken.emit
+		damage_taken.emit()
 	if health <= 0:
-		dead.emit
+		dead.emit()

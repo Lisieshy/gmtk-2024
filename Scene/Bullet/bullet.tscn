@@ -29,4 +29,4 @@ shape = SubResource("CircleShape2D_gt8mu")
 
 [connection signal="area_entered" from="HurtBoxComponant" to="." method="_on_hurt_box_componant_area_entered"]
 [connection signal="body_entered" from="HurtBoxComponant" to="." method="_on_hurt_box_componant_body_entered"]
-[connection signal="did_damage" from="HurtBoxComponant" to="." method="_on_hurt_box_componant_did_damage"]
+[connection signal="collision" from="HurtBoxComponant" to="." method="_on_hurt_box_componant_collision"]
