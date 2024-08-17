@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://nsb206dd083t"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://bay6tmvoai4pn"]
 
 [ext_resource type="Texture2D" uid="uid://bmung6483y117" path="res://Assets/texture/Tileset.png" id="1_5x7t3"]
 [ext_resource type="PackedScene" uid="uid://bnhm0doij3ymd" path="res://Scene/BatteryPack/battery_pack.tscn" id="2_kh7fi"]
