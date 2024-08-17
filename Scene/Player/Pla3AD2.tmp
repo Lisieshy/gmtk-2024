@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://btar06bgcmkuo"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_u30so"]
+[ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/Player.png" id="2_mljok"]
+[ext_resource type="Texture2D" uid="uid://odgxuqm1dc7p" path="res://Assets/gun.png" id="3_bx26u"]
+[ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
+[ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
+
+[sub_resource type="Curve" id="Curve_krgap"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
+radius = 2.2409
+
+[node name="Player" type="RigidBody2D"]
+physics_interpolation_mode = 1
+mass = 50.0
+lock_rotation = true
+script = ExtResource("1_u30so")
+charge_rate = SubResource("Curve_krgap")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("2_mljok")
+
+[node name="Gun" type="Sprite2D" parent="."]
+texture = ExtResource("3_bx26u")
+offset = Vector2(14, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3.63, 3.63)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Node2D"]
+
+[node name="MarginContainer" type="MarginContainer" parent="Node2D/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 128
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Node2D/CanvasLayer/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Node2D/CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 500.0
+value = 50.0
+allow_greater = true
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_top = 8
+stretch_margin_right = 8
+stretch_margin_bottom = 8
+texture_under = ExtResource("4_x0xns")
+texture_progress = ExtResource("6_yoqsp")

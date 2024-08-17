@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://4fod8lakcnnp"]
+
+[ext_resource type="Shader" path="res://Scene/Player/bullet_color.gdshader" id="1_t7cq2"]
+
+[resource]
+shader = ExtResource("1_t7cq2")
+shader_parameter/energy_color = Color(0.29, 0.301834, 1, 1)

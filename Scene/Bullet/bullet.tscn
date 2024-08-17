@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://uylqc1jywe5l"]
+
+[ext_resource type="Material" uid="uid://4fod8lakcnnp" path="res://Scene/Bullet/bullet_shader.tres" id="1_yjn1a"]
+[ext_resource type="Texture2D" uid="uid://ca4g12j1djbs1" path="res://Assets/texture/energy_bullet.png" id="2_tfwjj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8it4r"]
+radius = 6.0
+
+[node name="Bullet" type="Sprite2D"]
+material = ExtResource("1_yjn1a")
+texture = ExtResource("2_tfwjj")
+hframes = 3
+frame = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_8it4r")
