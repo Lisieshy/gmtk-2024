@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://btar06bgcmkuo"]
+[gd_scene load_steps=18 format=3 uid="uid://btar06bgcmkuo"]
 
 [ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_u30so"]
 [ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/texture/Player.png" id="2_mljok"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
 [ext_resource type="Texture2D" uid="uid://c2jgo3kvpmgpw" path="res://Assets/shader/point_light.png" id="6_t8hvk"]
 [ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
+[ext_resource type="PackedScene" uid="uid://ck4oxtxrmjb80" path="res://Scene/Componant/health_componant.tscn" id="9_72ryk"]
+[ext_resource type="PackedScene" uid="uid://bnm4iucmcebfp" path="res://Scene/Componant/hitbox_componant.tscn" id="10_j3v4f"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27w75"]
 bounce = 0.5
@@ -85,6 +87,9 @@ _data = {
 "bullet_rotation": SubResource("Animation_p3120")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_k63s3"]
+radius = 7.07107
+
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
 collision_layer = 2
@@ -121,7 +126,7 @@ texture = ExtResource("6_t8hvk")
 position = Vector2(26, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.76837e-07, 0)
+position = Vector2(1.90735e-06, -2.38419e-07)
 scale = Vector2(3.57, 3.57)
 shape = SubResource("CircleShape2D_sew5y")
 
@@ -164,5 +169,15 @@ stretch_margin_right = 8
 stretch_margin_bottom = 8
 texture_under = ExtResource("4_x0xns")
 texture_progress = ExtResource("6_yoqsp")
+
+[node name="HealthComponant" parent="." instance=ExtResource("9_72ryk")]
+max_health = 10
+health = 10
+
+[node name="HitboxComponant" parent="." node_paths=PackedStringArray("health_componant") instance=ExtResource("10_j3v4f")]
+health_componant = NodePath("../HealthComponant")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponant"]
+shape = SubResource("CircleShape2D_k63s3")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

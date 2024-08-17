@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var timer: Timer = $Timer
 
+const BULLET = preload("res://Scene/Bullet/bullet.tscn")
 const MAX_ENERGY: int = 300
 var projectile_force: int = 0
 var energy: int = 300:
@@ -52,13 +53,27 @@ func _physics_process(_delta: float) -> void:
 		timer.stop()
 		var tween = get_tree().create_tween()
 		tween.set_parallel(true)
-		tween.tween_property(camera_2d, "zoom", Vector2.ONE * 2.0, 0.2).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(camera_2d, "zoom", Vector2.ONE * 2.0, 0.4).set_trans(Tween.TRANS_LINEAR)
 		tween.tween_property(camera_2d, "position", Vector2(0,0), 0.2).set_trans(Tween.TRANS_ELASTIC)
 		energy_effect.visible = false
 		point_light_2d.visible = false
 		var angle = gun.rotation
 		player_rb2d.apply_impulse(Vector2(cos(angle), sin(angle)) * projectile_force * -30)
+		
+		if projectile_force > 0:
+			var new_bullet = BULLET.instantiate()
+			new_bullet.frame = energy_effect.frame
+			new_bullet.material.set("shader_parameter/energy_color", color_progression.sample(timer.wait_time))
+			new_bullet.direction = Vector2(cos(angle), sin(angle)) * projectile_force * 30
+			new_bullet.global_position = $Gun/Bullet_Spawn.global_position
+			
+			get_parent().add_child(new_bullet)
+		
+		
 		projectile_force = 0
+
+	if Input.is_key_label_pressed(KEY_R):
+		energy = 500
 
 func _on_timer_timeout() -> void:
 	if timer.wait_time < 1 and energy > 0:

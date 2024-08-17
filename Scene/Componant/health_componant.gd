@@ -14,7 +14,7 @@ class_name HealthComponant
 signal damage_taken
 signal dead
 
-func take_damage(damage_value: int) -> void:
+func damage(damage_value: int) -> void:
 	health -= damage_value
 	if health > 0:
 		damage_taken.emit
