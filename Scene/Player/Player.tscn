@@ -84,7 +84,6 @@ _data = {
 
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
-mass = 50.0
 lock_rotation = true
 script = ExtResource("1_u30so")
 color_progression = SubResource("Gradient_a8lit")
@@ -122,7 +121,7 @@ scale = Vector2(3.57, 3.57)
 shape = SubResource("CircleShape2D_sew5y")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -151,7 +150,8 @@ size_flags_vertical = 0
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-value = 100.0
+max_value = 300.0
+value = 300.0
 nine_patch_stretch = true
 stretch_margin_left = 8
 stretch_margin_top = 8

@@ -3,14 +3,15 @@ extends Node2D
 @onready var timer: Timer = $Timer
 
 var projectile_force: int = 0
-var energy: int = 100:
+var energy: int = 300:
 	set(new_energy):
 		energy = new_energy
 		if energy_bar:
 			energy_bar.value = new_energy
 	get:
 		return energy
-
+		
+@onready var player_rb2d: RigidBody2D = $"."
 @onready var energy_bar: TextureProgressBar = $CanvasLayer/MarginContainer/VBoxContainer/TextureProgressBar
 @onready var player: Sprite2D = $Player
 @onready var gun: Sprite2D = $Gun
@@ -21,20 +22,22 @@ var energy: int = 100:
 @onready var point_light_2d: PointLight2D = $Gun/PointLight2D
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Shooting"):
+	if Input.is_action_just_pressed("Shooting") and energy > 0:
+		timer.wait_time = 0.012
+		timer.start()
 		energy_effect.visible = true
 		point_light_2d.visible = true
 		energy_effect.frame = 0
-		timer.wait_time = 0.1
 		point_light_2d.scale = Vector2.ONE * timer.wait_time / 4
 		energy_effect.material.set("shader_parameter/energy_color", color_progression.sample(timer.wait_time))
 		point_light_2d.color = color_progression.sample(timer.wait_time)
-		timer.start()
 		
 	if Input.is_action_just_released("Shooting"):
 		timer.stop()
 		energy_effect.visible = false
 		point_light_2d.visible = false
+		var angle = gun.rotation
+		player_rb2d.apply_impulse(Vector2(cos(angle), sin(angle)) * projectile_force * -30)
 		projectile_force = 0
 
 func _on_timer_timeout() -> void:
@@ -66,6 +69,7 @@ func _on_timer_timeout() -> void:
 func _process(delta: float) -> void:
 	var mousepos = get_global_mouse_position()
 	gun.look_at(mousepos)
+	gun.rotation_degrees = wrap(gun.rotation_degrees, 0, 360)
 	if mousepos.x > position.x:
 		player.flip_h = 0
 		gun.flip_v = 0
