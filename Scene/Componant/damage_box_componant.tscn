@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbfuaiy3f33hi"]
+
+[ext_resource type="Script" path="res://Scene/Componant/damage_box_componant.gd" id="1_lw2un"]
+
+[node name="DamageBoxComponant" type="Area2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_lw2un")
