@@ -84,6 +84,7 @@ _data = {
 
 [node name="Player" type="RigidBody2D"]
 physics_interpolation_mode = 1
+collision_layer = 2
 lock_rotation = true
 script = ExtResource("1_u30so")
 color_progression = SubResource("Gradient_a8lit")

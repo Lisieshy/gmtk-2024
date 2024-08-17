@@ -1,16 +1,19 @@
+class_name BlobThePlayer
+
 extends Node2D
 
 @onready var timer: Timer = $Timer
 
+const MAX_ENERGY: int = 300
 var projectile_force: int = 0
 var energy: int = 300:
 	set(new_energy):
-		energy = new_energy
+		energy = clamp(new_energy, 0, 300)
 		if energy_bar:
-			energy_bar.value = new_energy
+			energy_bar.value = energy
 	get:
 		return energy
-		
+
 @onready var player_rb2d: RigidBody2D = $"."
 @onready var energy_bar: TextureProgressBar = $CanvasLayer/MarginContainer/VBoxContainer/TextureProgressBar
 @onready var player: Sprite2D = $Player
@@ -20,6 +23,9 @@ var energy: int = 300:
 @onready var energy_effect: Sprite2D = $Gun/EnergyEffect
 @export var color_progression: Gradient
 @onready var point_light_2d: PointLight2D = $Gun/PointLight2D
+
+func _ready() -> void:
+	energy_bar.max_value = MAX_ENERGY
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("Shooting") and energy > 0:
