@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://btar06bgcmkuo"]
+[gd_scene load_steps=14 format=3 uid="uid://btar06bgcmkuo"]
 
 [ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_u30so"]
 [ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/texture/Player.png" id="2_mljok"]
 [ext_resource type="Texture2D" uid="uid://odgxuqm1dc7p" path="res://Assets/texture/gun.png" id="3_bx26u"]
+[ext_resource type="Material" uid="uid://4fod8lakcnnp" path="res://Scene/Bullet/bullet_shader.tres" id="4_forep"]
 [ext_resource type="Texture2D" uid="uid://ca4g12j1djbs1" path="res://Assets/texture/energy_bullet.png" id="4_fyt50"]
-[ext_resource type="Shader" path="res://Scene/Player/bullet_color.gdshader" id="4_t5uj3"]
 [ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
 [ext_resource type="Texture2D" uid="uid://c2jgo3kvpmgpw" path="res://Assets/shader/point_light.png" id="6_t8hvk"]
 [ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
@@ -17,11 +17,7 @@ metadata/_snap_enabled = true
 metadata/_snap_count = 12
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
-radius = 2.2409
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7no1b"]
-shader = ExtResource("4_t5uj3")
-shader_parameter/energy_color = Color(0.29, 0.372833, 1, 1)
+radius = 2.1
 
 [sub_resource type="Animation" id="Animation_apped"]
 length = 0.001
@@ -93,10 +89,6 @@ lock_rotation = true
 script = ExtResource("1_u30so")
 color_progression = SubResource("Gradient_a8lit")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(3.57, 3.57)
-shape = SubResource("CircleShape2D_sew5y")
-
 [node name="Player" type="Sprite2D" parent="."]
 texture = ExtResource("2_mljok")
 
@@ -108,7 +100,7 @@ offset = Vector2(14, 0)
 visible = false
 light_mask = 0
 visibility_layer = 2
-material = SubResource("ShaderMaterial_7no1b")
+material = ExtResource("4_forep")
 position = Vector2(26, 0)
 texture = ExtResource("4_fyt50")
 hframes = 3
@@ -123,6 +115,11 @@ texture = ExtResource("6_t8hvk")
 
 [node name="Bullet_Spawn" type="Marker2D" parent="Gun"]
 position = Vector2(26, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.76837e-07, 0)
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
