@@ -2,6 +2,9 @@ class_name BlobThePlayer
 
 extends Node2D
 
+var jump_sound = preload("res://Assets/audio/jump.wav")
+var shoot_sound = preload("res://Assets/audio/shoot.wav")
+
 @onready var timer: Timer = $Timer
 
 const BULLET = preload("res://Scene/Bullet/bullet.tscn")
@@ -21,6 +24,10 @@ var energy: int = 300:
 @onready var gun: Sprite2D = $Gun
 @onready var camera_2d: Camera2D = $Camera2D
 
+@onready var gun_firing: AudioStreamPlayer2D = $GunFiring
+@onready var bounce: AudioStreamPlayer2D = $Bounce
+
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var energy_effect: Sprite2D = $Gun/EnergyEffect
 @export var color_progression: Gradient
 @onready var point_light_2d: PointLight2D = $Gun/PointLight2D
@@ -29,6 +36,9 @@ var camera_zoom_delta: float = 0.05
 
 func _ready() -> void:
 	energy_bar.max_value = MAX_ENERGY
+	bounce.stream = jump_sound
+	gun_firing.stream = shoot_sound
+	
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("Shooting") and energy > 0:
@@ -68,8 +78,8 @@ func _physics_process(_delta: float) -> void:
 			new_bullet.global_position = $Gun/Bullet_Spawn.global_position
 			
 			get_parent().add_child(new_bullet)
-		
-		
+			play_gun_sound()
+
 		projectile_force = 0
 
 	if Input.is_key_label_pressed(KEY_R):
@@ -101,8 +111,20 @@ func _on_timer_timeout() -> void:
 
 
 
+func play_gun_sound() -> void:
+	var pitch = lerp(1.0, 0.2, timer.wait_time)
+	var dupe: AudioStreamPlayer2D = gun_firing.duplicate()
+	add_child(dupe)
+	dupe.pitch_scale = pitch
+	dupe.play()
+	await dupe.finished
 
 
+func play_sound(stream: AudioStreamPlayer2D) -> void:
+	var dupe: AudioStreamPlayer2D = stream.duplicate()
+	add_child(dupe)
+	dupe.play()
+	await dupe.finished
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -116,3 +138,7 @@ func _process(delta: float) -> void:
 	if mousepos.x < position.x:
 		player.flip_h = 1
 		gun.flip_v = 1
+
+
+func _on_body_entered(body: Node) -> void:
+	play_sound(bounce)

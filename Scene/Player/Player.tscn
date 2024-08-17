@@ -95,6 +95,8 @@ physics_interpolation_mode = 1
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_27w75")
 lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("1_u30so")
 color_progression = SubResource("Gradient_a8lit")
 
@@ -141,6 +143,10 @@ libraries = {
 }
 autoplay = "bullet_rotation"
 
+[node name="GunFiring" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Bounce" type="AudioStreamPlayer2D" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
@@ -180,4 +186,5 @@ health_componant = NodePath("../HealthComponant")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponant"]
 shape = SubResource("CircleShape2D_k63s3")
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
