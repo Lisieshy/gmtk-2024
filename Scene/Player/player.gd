@@ -7,7 +7,7 @@ var ladder = preload("res://Scene/Ladder/Ladder.tscn")
 
 @onready var timer: Timer = $Timer
 
-const MAX_MATERIAL: int = 50
+const MAX_MATERIAL: int = 15
 
 var build_materials: int = MAX_MATERIAL:
 	set(new_build_materials):
@@ -17,7 +17,7 @@ var build_materials: int = MAX_MATERIAL:
 	get:
 		return build_materials
 var max_ladder_length: int = 5
-var ladder_length: int = 1
+var ladder_length: int = 0
 
 var is_on_ladder: bool = false
 
@@ -42,16 +42,19 @@ func _physics_process(delta: float) -> void:
 		timer.start()
 		iladder = ladder.instantiate()
 		iladder.freeze = true
-		marker_2d.add_child(iladder)
 		var offset = Vector2(16.0, 0.0)
 		iladder.position = offset
 		iladder.rotate(deg_to_rad(90))
+		marker_2d.add_child(iladder)
+		build_materials -= 1
+		ladder_length += 1
+
 
 	if Input.is_action_just_released("click"):
 		timer.stop()
 		iladder.freeze = false
 		iladder.reparent(get_tree().root, true)
-		ladder_length = 1
+		ladder_length = 0
 
 	if Input.is_key_label_pressed(KEY_R):
 		build_materials = MAX_MATERIAL
@@ -59,7 +62,9 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
 	if areas.size() >= 1:
-		is_on_ladder = true
+		var rb2d: RigidBody2D = areas[0].get_parent()
+		if rb2d.linear_velocity.y <= 2 and rb2d.linear_velocity.y >= -2 and rb2d.linear_velocity.x <= 2 and rb2d.linear_velocity.x >= -2:
+			is_on_ladder = true
 	else:
 		is_on_ladder = false
 
@@ -68,11 +73,10 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-
-
 func _on_timer_timeout() -> void:
 	if ladder_length < max_ladder_length:
 		iladder.call("grow_ladder")
+		build_materials -= 1
 		ladder_length += 1
 
 func play_sound(stream: AudioStreamPlayer2D) -> void:
