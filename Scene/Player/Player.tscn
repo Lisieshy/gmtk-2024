@@ -32,6 +32,8 @@ zoom = Vector2(2, 2)
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="CollidedTimer" type="Timer" parent="."]
+
 [node name="Bounce" type="AudioStreamPlayer2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -86,4 +88,5 @@ scale = Vector2(3.57, 3.57)
 shape = SubResource("CircleShape2D_sew5y")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="CollidedTimer" to="." method="_on_collided_timer_timeout"]
 [connection signal="dead" from="HealthComponant" to="." method="_on_health_componant_dead"]

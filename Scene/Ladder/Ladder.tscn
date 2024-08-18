@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnc704xrgpuu2"]
 
-[ext_resource type="Texture2D" uid="uid://cpni43m4w2gei" path="res://icon.svg" id="1_awcdo"]
 [ext_resource type="Script" path="res://Scene/Ladder/ladder.gd" id="1_sd4m5"]
+[ext_resource type="Texture2D" uid="uid://barynw8qa0mfw" path="res://Assets/texture/lader.png" id="2_nw1wf"]
 
 [node name="Ladder" type="RigidBody2D"]
 collision_layer = 18
@@ -11,10 +11,11 @@ max_contacts_reported = 4
 script = ExtResource("1_sd4m5")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.533333)
 texture_filter = 1
 texture_repeat = 2
 scale = Vector2(0.125, 0.125)
-texture = ExtResource("1_awcdo")
+texture = ExtResource("2_nw1wf")
 region_enabled = true
 region_rect = Rect2(0, 0, 128, 128)
 
