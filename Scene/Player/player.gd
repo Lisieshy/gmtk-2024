@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 		build_materials = MAX_MATERIAL
 	
 	if not is_on_ladder:
-		velocity.y += 9.8
+		velocity.y += 9800 * delta
 	move_and_slide()
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
