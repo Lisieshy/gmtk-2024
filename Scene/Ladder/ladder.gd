@@ -27,3 +27,8 @@ func grow_ladder() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_sleeping_state_changed() -> void:
+	if sleeping:
+		$Sprite.modulate = Color.GREEN

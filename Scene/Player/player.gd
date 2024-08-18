@@ -62,9 +62,7 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
 	if areas.size() >= 1:
-		var rb2d: RigidBody2D = areas[0].get_parent()
-		if rb2d.linear_velocity.y <= 2 and rb2d.linear_velocity.y >= -2 and rb2d.linear_velocity.x <= 2 and rb2d.linear_velocity.x >= -2:
-			is_on_ladder = true
+		is_on_ladder = areas.all(is_rb2d_sleeping)
 	else:
 		is_on_ladder = false
 
@@ -73,8 +71,15 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func is_rb2d_sleeping(area: Area2D):
+	var rb2d: RigidBody2D = area.get_parent()
+	if rb2d.sleeping:
+		return true
+	else:
+		return false
+
 func _on_timer_timeout() -> void:
-	if ladder_length < max_ladder_length:
+	if ladder_length < max_ladder_length and build_materials > 0:
 		iladder.call("grow_ladder")
 		build_materials -= 1
 		ladder_length += 1
