@@ -31,4 +31,4 @@ func _process(delta: float) -> void:
 
 func _on_sleeping_state_changed() -> void:
 	if sleeping:
-		$Sprite.modulate = Color.GREEN
+		$Sprite.modulate = Color(1,1,1,1)

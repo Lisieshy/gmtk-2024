@@ -6,6 +6,7 @@ var jump_sound = preload("res://Assets/audio/jump.wav")
 var ladder = preload("res://Scene/Ladder/Ladder.tscn")
 
 @onready var timer: Timer = $Timer
+@onready var collided_timer: Timer = $CollidedTimer
 
 const MAX_MATERIAL: int = 15
 
@@ -52,9 +53,13 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_released("click"):
 		timer.stop()
-		iladder.freeze = false
-		iladder.reparent(get_tree().root, true)
-		ladder_length = 0
+		if iladder.get_colliding_bodies().size() == 0:
+			iladder.freeze = false
+			iladder.reparent(get_tree().root, true)
+			ladder_length = 0
+		else:
+			collided_timer.wait_time = 0.1
+			collided_timer.start()
 
 	if Input.is_key_label_pressed(KEY_R):
 		build_materials = MAX_MATERIAL
@@ -83,6 +88,14 @@ func _on_timer_timeout() -> void:
 		iladder.call("grow_ladder")
 		build_materials -= 1
 		ladder_length += 1
+		
+func _on_collided_timer_timeout() -> void:
+	if iladder.get_colliding_bodies().size() == 0:
+		iladder.freeze = false
+		iladder.reparent(get_tree().root, true)
+		ladder_length = 0
+		collided_timer.stop()
+
 
 func play_sound(stream: AudioStreamPlayer2D) -> void:
 	var dupe: AudioStreamPlayer2D = stream.duplicate()
