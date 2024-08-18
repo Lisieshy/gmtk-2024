@@ -55,16 +55,18 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_key_label_pressed(KEY_R):
 		build_materials = MAX_MATERIAL
-	
-	if not is_on_ladder:
-		velocity.y += 9800 * delta
-	move_and_slide()
+
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
 	if areas.size() >= 1:
 		is_on_ladder = true
 	else:
 		is_on_ladder = false
+
+	if not is_on_ladder:
+		velocity.y += 980.0 * delta
+	print(velocity)
+	move_and_slide()
 
 
 
@@ -90,10 +92,11 @@ func _process(delta: float) -> void:
 
 func get_input():
 	velocity.x = 0
-	var input_direction: Vector2 = Input.get_vector("left", "right", "up", "down")
-	if not is_on_ladder:
-		input_direction.y = 0.0
-	velocity = input_direction * 150.0
+	var input_left_right: float = Input.get_axis("left", "right")
+	velocity.x = input_left_right * 150.0
+	if is_on_ladder:
+		var input_up_down: float = Input.get_axis("up", "down")
+		velocity.y = input_up_down * 150.0
 
 #func _on_body_entered(body: Node) -> void:
 	#play_sound(bounce)
