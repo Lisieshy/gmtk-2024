@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://k3nhki0evjgq"]
+[gd_scene load_steps=4 format=3 uid="uid://n2gbaiwftiog"]
 
 [ext_resource type="PackedScene" uid="uid://dhjks8ea43356" path="res://Scene/Componant/hurt_box_componant.tscn" id="1_i2r8g"]
 [ext_resource type="Texture2D" uid="uid://jucboai5xul7" path="res://Assets/texture/spike.png" id="1_nfjly"]

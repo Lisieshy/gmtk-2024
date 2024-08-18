@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bmung6483y117" path="res://Assets/texture/Tileset.png" id="1_076lm"]
 [ext_resource type="PackedScene" uid="uid://btar06bgcmkuo" path="res://Scene/Player/Player.tscn" id="1_t5w0k"]
 [ext_resource type="PackedScene" uid="uid://bnhm0doij3ymd" path="res://Scene/BatteryPack/battery_pack.tscn" id="2_mnrke"]
-[ext_resource type="PackedScene" uid="uid://k3nhki0evjgq" path="res://Scene/spike.tscn" id="3_8ymmr"]
+[ext_resource type="PackedScene" uid="uid://n2gbaiwftiog" path="res://Scene/spike.tscn" id="3_8ymmr"]
 [ext_resource type="Script" path="res://GodotTilemapBaker-main/GodotTilemapBaker-main/TilemapCollisionBaker.gd" id="4_ncohk"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0sqbf"]
@@ -476,10 +476,3 @@ tile_set = SubResource("TileSet_hqf3s")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 script = ExtResource("4_ncohk")
 tilemap_nodepath = NodePath("../TileMapLayer_World")
-
-[connection signal="body_entered" from="TileMapLayer_Interactable/Area2D" to="TileMapLayer_Interactable/Area2D" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer_Interactable/@Area2D@85549" to="TileMapLayer_Interactable/@Area2D@85549" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer_Interactable/@Area2D@85550" to="TileMapLayer_Interactable/@Area2D@85550" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer_Interactable/@Area2D@85551" to="TileMapLayer_Interactable/@Area2D@85551" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer_Interactable/@Area2D@85552" to="TileMapLayer_Interactable/@Area2D@85552" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer_Interactable/@Area2D@85553" to="TileMapLayer_Interactable/@Area2D@85553" method="_on_body_entered"]

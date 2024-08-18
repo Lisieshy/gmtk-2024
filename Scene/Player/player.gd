@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		timer.stop()
 		if iladder.get_colliding_bodies().size() == 0:
 			iladder.freeze = false
-			iladder.reparent(get_tree().root, true)
+			iladder.reparent(get_parent(), true)
 			ladder_length = 0
 		else:
 			collided_timer.wait_time = 0.1

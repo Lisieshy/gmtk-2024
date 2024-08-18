@@ -473,18 +473,3 @@ position = Vector2(0, -16)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 script = ExtResource("4_jsudp")
 tilemap_nodepath = NodePath("../TileMapLayer")
-
-[connection signal="body_entered" from="TileMapLayer2/Area2D" to="TileMapLayer2/Area2D" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94966" to="TileMapLayer2/@Area2D@94966" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94967" to="TileMapLayer2/@Area2D@94967" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94968" to="TileMapLayer2/@Area2D@94968" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94969" to="TileMapLayer2/@Area2D@94969" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94980" to="TileMapLayer2/@Area2D@94980" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94981" to="TileMapLayer2/@Area2D@94981" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94982" to="TileMapLayer2/@Area2D@94982" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94983" to="TileMapLayer2/@Area2D@94983" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94984" to="TileMapLayer2/@Area2D@94984" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94985" to="TileMapLayer2/@Area2D@94985" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94986" to="TileMapLayer2/@Area2D@94986" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94987" to="TileMapLayer2/@Area2D@94987" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayer2/@Area2D@94988" to="TileMapLayer2/@Area2D@94988" method="_on_body_entered"]
