@@ -19,7 +19,6 @@ collision_layer = 18
 script = ExtResource("1_u30so")
 
 [node name="Player" type="Sprite2D" parent="."]
-z_index = 1
 texture = ExtResource("2_mljok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -75,15 +74,6 @@ health_componant = NodePath("../HealthComponant")
 shape = SubResource("CircleShape2D_k63s3")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-
-[node name="LadderColliderTest" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="LadderColliderTest"]
-position = Vector2(1.90735e-06, -2.38419e-07)
-scale = Vector2(3.57, 3.57)
-shape = SubResource("CircleShape2D_sew5y")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="dead" from="HealthComponant" to="." method="_on_health_componant_dead"]

@@ -4,7 +4,8 @@
 [ext_resource type="Script" path="res://Scene/Ladder/ladder.gd" id="1_sd4m5"]
 
 [node name="Ladder" type="RigidBody2D"]
-collision_layer = 18
+collision_layer = 2
+collision_mask = 3
 freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 4
@@ -21,10 +22,6 @@ region_rect = Rect2(0, 0, 128, 128)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

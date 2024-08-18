@@ -1,6 +1,6 @@
 class_name BlobThePlayer
 
-extends Node2D
+extends CharacterBody2D
 
 var jump_sound = preload("res://Assets/audio/jump.wav")
 var ladder = preload("res://Scene/Ladder/Ladder.tscn")
@@ -16,11 +16,13 @@ var build_materials: int = MAX_MATERIAL:
 			materials_bar.value = build_materials
 	get:
 		return build_materials
+var max_ladder_length: int = 5
+var ladder_length: int = 1
 
-@onready var player_rb2d: RigidBody2D = $"."
+var is_on_ladder: bool = false
+
 @onready var materials_bar: TextureProgressBar = $CanvasLayer/MarginContainer/VBoxContainer/TextureProgressBar
 @onready var player: Sprite2D = $Player
-@onready var gun: Sprite2D = $Gun
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var marker_2d: Marker2D = $Marker2D
 
@@ -33,32 +35,43 @@ func _ready() -> void:
 	materials_bar.max_value = MAX_MATERIAL
 	bounce.stream = jump_sound
 
-#func change_parent(new_parent):
-	#call_deferred("_reparent", new_parent, self, get_global_transform())
-
-#func _reparent
-
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("Shooting") and build_materials > 0:
+func _physics_process(delta: float) -> void:
+	get_input()
+	if Input.is_action_just_pressed("click") and build_materials > 0:
 		timer.wait_time = 0.5
 		timer.start()
 		iladder = ladder.instantiate()
 		iladder.freeze = true
 		marker_2d.add_child(iladder)
-		var offset = Vector2(8.0 + cos(marker_2d.rotation), 0.0)
+		var offset = Vector2(16.0 + cos(marker_2d.rotation), 0.0)
 		iladder.position = offset
 		iladder.rotate(deg_to_rad(90))
 
-	if Input.is_action_just_released("Shooting"):
+	if Input.is_action_just_released("click"):
 		timer.stop()
 		iladder.freeze = false
 		iladder.reparent(get_tree().root, true)
+		ladder_length = 1
 
 	if Input.is_key_label_pressed(KEY_R):
 		build_materials = MAX_MATERIAL
+	
+	if not is_on_ladder:
+		velocity.y += 9.8
+	move_and_slide()
+	var collision = move_and_collide(velocity * delta, true)
+	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
+	if areas.size() >= 1:
+		is_on_ladder = true
+	else:
+		is_on_ladder = false
+
+
 
 func _on_timer_timeout() -> void:
-	iladder.call("grow_ladder")
+	if ladder_length < max_ladder_length:
+		iladder.call("grow_ladder")
+		ladder_length += 1
 
 func play_sound(stream: AudioStreamPlayer2D) -> void:
 	var dupe: AudioStreamPlayer2D = stream.duplicate()
@@ -70,15 +83,20 @@ func play_sound(stream: AudioStreamPlayer2D) -> void:
 func _process(delta: float) -> void:
 	var mousepos = get_global_mouse_position()
 	marker_2d.look_at(mousepos)
-	marker_2d.rotation_degrees = wrap(marker_2d.rotation_degrees, 0, 360)
 	if mousepos.x > position.x:
 		player.flip_h = 0
 	if mousepos.x < position.x:
 		player.flip_h = 1
 
-func _on_body_entered(body: Node) -> void:
-	play_sound(bounce)
+func get_input():
+	velocity.x = 0
+	var input_direction: Vector2 = Input.get_vector("left", "right", "up", "down")
+	if not is_on_ladder:
+		input_direction.y = 0.0
+	velocity = input_direction * 150.0
 
+#func _on_body_entered(body: Node) -> void:
+	#play_sound(bounce)
 
 func _on_health_componant_dead() -> void:
 	call_deferred("reload_level")
