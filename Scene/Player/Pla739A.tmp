@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://btar06bgcmkuo"]
+
+[ext_resource type="Script" path="res://Scene/Player/player.gd" id="1_u30so"]
+[ext_resource type="Texture2D" uid="uid://5wumxjhpkgrb" path="res://Assets/texture/Player.png" id="2_mljok"]
+[ext_resource type="Texture2D" uid="uid://cr86osxnedfq" path="res://Assets/TextureProgressBar/blue.png" id="4_x0xns"]
+[ext_resource type="Texture2D" uid="uid://c4lpcipwm46o8" path="res://Assets/TextureProgressBar/yellow.png" id="6_yoqsp"]
+[ext_resource type="PackedScene" uid="uid://ck4oxtxrmjb80" path="res://Scene/Componant/health_componant.tscn" id="9_72ryk"]
+[ext_resource type="PackedScene" uid="uid://bnm4iucmcebfp" path="res://Scene/Componant/hitbox_componant.tscn" id="10_j3v4f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sew5y"]
+radius = 2.1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k63s3"]
+radius = 7.07107
+
+[node name="Player" type="CharacterBody2D"]
+physics_interpolation_mode = 1
+collision_layer = 18
+script = ExtResource("1_u30so")
+
+[node name="Player" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_mljok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.90735e-06, -2.38419e-07)
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Bounce" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 128
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 50.0
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_top = 8
+stretch_margin_right = 8
+stretch_margin_bottom = 8
+texture_under = ExtResource("4_x0xns")
+texture_progress = ExtResource("6_yoqsp")
+
+[node name="HealthComponant" parent="." instance=ExtResource("9_72ryk")]
+max_health = 10
+health = 10
+
+[node name="HitboxComponant" parent="." node_paths=PackedStringArray("health_componant") instance=ExtResource("10_j3v4f")]
+collision_layer = 2
+health_componant = NodePath("../HealthComponant")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponant"]
+shape = SubResource("CircleShape2D_k63s3")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="LadderColliderTest" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LadderColliderTest"]
+position = Vector2(1.90735e-06, -2.38419e-07)
+scale = Vector2(3.57, 3.57)
+shape = SubResource("CircleShape2D_sew5y")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="dead" from="HealthComponant" to="." method="_on_health_componant_dead"]
