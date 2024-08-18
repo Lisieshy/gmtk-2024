@@ -10,7 +10,7 @@ var rectangle_shape_2d: RectangleShape2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	rectangle_shape_2d = RectangleShape2D.new()
-	rectangle_shape_2d.size = Vector2(16, 16)
+	rectangle_shape_2d.size = Vector2(12, 16)
 	collision_shape_2d.shape = rectangle_shape_2d
 	area_collision_shape_2d.shape = rectangle_shape_2d
 

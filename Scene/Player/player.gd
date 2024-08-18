@@ -35,6 +35,7 @@ var iladder: RigidBody2D
 func _ready() -> void:
 	materials_bar.max_value = MAX_MATERIAL
 	bounce.stream = jump_sound
+	$CanvasLayer.visible = true
 
 func _physics_process(delta: float) -> void:
 	get_input()
@@ -62,7 +63,7 @@ func _physics_process(delta: float) -> void:
 			collided_timer.start()
 
 	if Input.is_key_label_pressed(KEY_R):
-		build_materials = MAX_MATERIAL
+		call_deferred("reload_level")
 
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
@@ -72,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		is_on_ladder = false
 
 	if not is_on_ladder:
-		velocity.y += 980.0 * delta
+		velocity += get_gravity() * 2 * delta
 
 	move_and_slide()
 

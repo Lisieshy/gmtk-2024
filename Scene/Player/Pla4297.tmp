@@ -37,7 +37,6 @@ zoom = Vector2(2, 2)
 [node name="Bounce" type="AudioStreamPlayer2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15

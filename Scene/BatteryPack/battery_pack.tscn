@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnhm0doij3ymd"]
 
 [ext_resource type="Script" path="res://Scene/BatteryPack/battery_pack.gd" id="1_gmmk6"]
-[ext_resource type="Texture2D" uid="uid://bjjirjvryyepy" path="res://Assets/texture/battery.png" id="1_q8ck0"]
+[ext_resource type="Texture2D" uid="uid://bn4ancca7h688" path="res://Assets/texture/plank.png" id="2_kem0l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uftkg"]
-radius = 6.0
+radius = 8.0
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 0
@@ -12,7 +12,7 @@ collision_mask = 2
 script = ExtResource("1_gmmk6")
 
 [node name="BatteryPack" type="Sprite2D" parent="."]
-texture = ExtResource("1_q8ck0")
+texture = ExtResource("2_kem0l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uftkg")
