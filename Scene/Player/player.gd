@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(velocity * delta, true)
 	var areas: Array[Area2D] = $LadderColliderTest.get_overlapping_areas()
 	if areas.size() >= 1:
-		is_on_ladder = areas.all(is_rb2d_sleeping)
+		is_on_ladder = areas.any(is_rb2d_sleeping)
 	else:
 		is_on_ladder = false
 
