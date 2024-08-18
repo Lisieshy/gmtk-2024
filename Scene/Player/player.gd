@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		iladder = ladder.instantiate()
 		iladder.freeze = true
 		marker_2d.add_child(iladder)
-		var offset = Vector2(16.0 + cos(marker_2d.rotation), 0.0)
+		var offset = Vector2(16.0, 0.0)
 		iladder.position = offset
 		iladder.rotate(deg_to_rad(90))
 
@@ -65,7 +65,7 @@ func _physics_process(delta: float) -> void:
 
 	if not is_on_ladder:
 		velocity.y += 980.0 * delta
-	print(velocity)
+
 	move_and_slide()
 
 
